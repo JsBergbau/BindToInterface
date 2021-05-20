@@ -43,6 +43,13 @@ You can specifiy multiple IPs by seperating them by comma, so `BIND_EXCLUDE=127.
 subnet, you can use `BIND_EXCLUDE=127.0.0.1,192.168.0`. The program checks if destination IP starts with one IP from bind exclude. If so this connection isn't bound to interface. If you want to exclude 192.168.0.0/16
 subnet, you would use `BIND_EXCLUDE=127.0.0.1,192.168.`. Since it is checked if destination IP begins with one in BIND_EXCLUDE specified address, it doesn't matter if you specify it with or without trailing `.`.
 
+## Example usage of BindToInterface
+
+### Using interactively
+
+Instead of executing each program with LD_PRELOAD you can use `BIND_INTERFACE=ovpn DNS_OVERRIDE_IP=8.8.8.8 BIND_EXCLUDE=8.8.8 LD_PRELOAD=./bindToInterface.so bash`
+In this second bash all programs executed now use bound interface, try it with `curl ifconfig.me`. This will give you the IP "ovpn" interface.
+
 ### Microsocks
 
 You can for example use this program to bind microsocks https://github.com/rofl0r/microsocks to one desired interface. You can have multiple VPN connections on Raspberry PI for example and then you only need
