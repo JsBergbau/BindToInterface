@@ -11,7 +11,7 @@
 
 //#define DEBUG
 
-//compile with gcc -nostartfiles -fpic -shared bindInterface.c -o bindInterface.so -ldl -D_GNU_SOURCE
+//compile with gcc -nostartfiles -fpic -shared bindToInterface.c -o bindToInterface.so -ldl -D_GNU_SOURCE
 //Use with BIND_INTERFACE=<network interface> LD_PRELOAD=./bindInterface.so <your program> like curl ifconfig.me
 
 int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
