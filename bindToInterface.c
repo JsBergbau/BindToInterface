@@ -8,6 +8,7 @@
 #include <errno.h>
 #include <arpa/inet.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 //#define DEBUG
 
@@ -125,6 +126,6 @@ int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
 		}
 	}
 
-	int ret = (int)original_connect(sockfd, addr, addrlen);
-	return ret;
+	return (uintptr_t)original_connect(sockfd, addr, addrlen);
+	
 }
