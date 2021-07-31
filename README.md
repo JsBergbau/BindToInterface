@@ -1,6 +1,6 @@
 # BindToInterface - securely bind a programm to a specific network interface or network adapter
 
-Bind To Interface is a useful program if you have multiple network interfaces or adapters and want your program use strictly only one or none. You don't
+Bind To Interface is a useful program for unix/linux if you have multiple network interfaces or adapters and want your program use strictly only one or none. You don't
 have to bother with routing tables, network namespaces or iptables and marking packets.
 
 BindToInterface is very flexible. You can set exceptions to which IPs no binding should be made. This is especially useful if your program still needs 
