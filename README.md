@@ -57,6 +57,14 @@ to specify a SOCKS proxy in your browser to have different IPs from multiple cou
 true IP address. Since microsocks opens "connect sockets" only for outgoing traffic you don't have to use bind exclude for your clients. Clients are handled via "accept sockets" and there is no binding.
 Example command line: `BIND_INTERFACE=ovpn DNS_OVERRIDE_IP=8.8.8.8 LD_PRELOAD=./bindToInterface.so ./microsocks -p 1080`
 
+### CAUTION when using sudo
+
+It is ok to use `sudo BIND_INTERFACE=ovpn DNS_OVERRIDE_IP=8.8.8.8 BIND_EXCLUDE=8.8.8 LD_PRELOAD=./bindToInterface.so bash` or any other program. BUT NEVER use sudo again in front of the program. This will lead that bindToInterface will not be loaded and thus the wrong interface will be used.
+
+### CAUTION when using root rights in general especially with network tools like nmap 
+**Network tools like nmap will use RAW sockets when using root rights. This means they will not use the OS systemcall. So interface will not be bound and nmap will use your default route like executing without LD_PRELOAD. In the case of nmap there is the `-e` option where you can instruct nmap to use specified interface. So use this option for nmap and never LD_PRELOAD with nmap.**
+
+
 ## Debug and tests
 
 If you have for example `BIND_INTERFACE=ovpn DNS_OVERRIDE_IP=8.8.8.8 BIND_EXCLUDE=8.8.8 LD_PRELOAD=./bindToInterface.so traceroute -U -p 53 8.8.8.8` then you can see that DNS traffic will
