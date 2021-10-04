@@ -22,6 +22,10 @@ Configuration and usage of bind to interface is very simple. Example of how to r
 Instead of specifying the parameters in the same line you could also export them like `export DNS_OVERRIDE_IP=8.8.8.8`. In this case interface ovpn is a VPN provider but configured via option `route-nopull`, 
 so your internet traffic still goes via your normal internet connection without VPN.
 
+### Specifying absolute path 
+
+Especially when using more complex scripts or programs, that use another working directory than the current one, you have to specify the absolute path to `bindToInterface.so`, otherwise an error message will be printed, that it couldn't be loaded. Example when bindToInterface.so is located at `/opt/bindToInterface/bindToInterface.so`: `BIND_INTERFACE=ovpn DNS_OVERRIDE_IP=8.8.8.8 LD_PRELOAD=/opt/bindToInterface/bindToInterface.so curl ifconfig.me`
+
 ### BIND_INTERFACE
 
 This is the essential part. If not specified program will warn you, however it will not refuse the connection. 
