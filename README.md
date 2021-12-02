@@ -18,7 +18,7 @@ Download the source code and compile it with `gcc -nostartfiles -fpic -shared bi
 
 ## Usage of BindToInterface
 
-Configuration and usage of bind to interface is very simple. Example of how to run a programm with BindToInterface: `BIND_INTERFACE=ovpn DNS_OVERRIDE_IP=8.8.8.8 LD_PRELOAD=./bindToInterface.so curl ifconfig.me`
+Configuration and usage of bind to interface is very simple. Example of how to run a programm with BindToInterface: `BIND_INTERFACE=ovpn DNS_OVERRIDE_IP=8.8.8.8 LD_PRELOAD=./bindToInterface.so curl ifconfig.me` Note: Prior to kernel 5.6.X - April 2020 you need superuser rights, see https://github.com/JsBergbau/BindToInterface/issues/4
 Instead of specifying the parameters in the same line you could also export them like `export DNS_OVERRIDE_IP=8.8.8.8`. In this case interface ovpn is a VPN provider but configured via option `route-nopull`, 
 so your internet traffic still goes via your normal internet connection without VPN.
 
