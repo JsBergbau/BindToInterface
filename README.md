@@ -22,6 +22,12 @@ Configuration and usage of bind to interface is very simple. Example of how to r
 Instead of specifying the parameters in the same line you could also export them like `export DNS_OVERRIDE_IP=8.8.8.8`. In this case interface ovpn is a VPN provider but configured via option `route-nopull`, 
 so your internet traffic still goes via your normal internet connection without VPN.
 
+### Multiple physical NICs
+When using BindToInterface with OpenVPN and `route-nopull` option everything works as expected, even though `ip route` does only show the local subnet rules like `10.8.0.0/16 dev ovpn proto kernel scope link src 10.8.0.12`.
+
+However when using pyhsical interfaces, kernel needs to know your gateway for the pyhsical interfaces. So when using like `BIND_INTERFACE=eth1 DNS_OVERRIDE_IP=8.8.8.8 LD_PRELOAD=./bindToInterface.so curl 34.160.111.145 -H "Host: ifconfig.me"` and you get an error "No route to host" then you need to add a route for your second NIC. You can to this with a higher metric, so this route is not used by default, but only with BindToInterface like `sudo ip route add default via 192.168.194.1 metric 500`. A route without a metric has metric `0` meaning highest metric, see https://unix.stackexchange.com/a/431839
+ 
+
 ### Specifying absolute path 
 
 Especially when using more complex scripts or programs, that use another working directory than the current one, you have to specify the absolute path to `bindToInterface.so`, otherwise an error message will be printed, that it couldn't be loaded. Example when bindToInterface.so is located at `/opt/bindToInterface/bindToInterface.so`: `BIND_INTERFACE=ovpn DNS_OVERRIDE_IP=8.8.8.8 LD_PRELOAD=/opt/bindToInterface/bindToInterface.so curl ifconfig.me`
