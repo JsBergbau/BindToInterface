@@ -10,7 +10,8 @@ to communicate with localhost. For example if you make an outgoing ssh connectio
 
 BindToInterface uses a feature called dynamic linking. Every program that makes an internet connection does this by making an API call to the operating system. In this case this API function is called `connect`.
 To bind to a specific network interface this program intercepts this call, decides if it has to bind to an interface and then calls the original connect function of the operating system. 
-Because of this method BindToInterface should not leak any data through an undesired interface. If you make other experiences, please open an issue. 
+**This works only if standard libraries are used. When using go programs for example, which uses static linked libraries, then this won't work and data would get leaked.**
+If you know other examples where binding doesn't work, please open an issue. 
 
 ## Build BindToInterface
 
