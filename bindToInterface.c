@@ -67,7 +67,7 @@ int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
 				{
 					IPExcluded = true;
 #ifdef DEBUG
-					printf("IP %s excluded by IP-List, not binding to interface \n", dest, getenv("BIND_INTERFACE"));
+					printf("IP %s excluded by IP-List, not binding to interface %s\n", dest, getenv("BIND_INTERFACE"));
 #endif
 					break;
 				}
