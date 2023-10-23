@@ -37,6 +37,10 @@ Especially when using more complex scripts or programs, that use another working
 
 This is the essential part. If not specified program will warn you, however it will not refuse the connection. 
 
+### BIND_SOURCE_IP
+
+You can also set the source IP in case multiple IP addresses are attached to your interface, like this: `BIND_INTERFACE=eth0 BIND_SOURCE_IP=1.2.3.4 LD_PRELOAD...`
+
 ### DNS_OVERRIDE_IP
 
 When you have multiple interfaces you normally also have multiple DNS servers. Since your program is bound to specified interface, also DNS traffic has to go through that interface. 
