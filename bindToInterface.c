@@ -9,11 +9,22 @@
 #include <arpa/inet.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <unistd.h>
 
 //#define DEBUG
 
 //compile with gcc -nostartfiles -fpic -shared bindToInterface.c -o bindToInterface.so -ldl -D_GNU_SOURCE
 //Use with BIND_INTERFACE=<network interface> LD_PRELOAD=./bindInterface.so <your program> like curl ifconfig.me
+
+int bind_to_source_ip(int sockfd, const char *source_ip)
+{
+    struct sockaddr_in source_addr;
+    memset(&source_addr, 0, sizeof(source_addr));
+    source_addr.sin_family = AF_INET;
+    source_addr.sin_addr.s_addr = inet_addr(source_ip);
+
+    return bind(sockfd, (struct sockaddr *)&source_addr, sizeof(source_addr));
+}
 
 int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
 {
@@ -80,6 +91,8 @@ int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
 		{
 			char *bind_addr_env;
 			bind_addr_env = getenv("BIND_INTERFACE");
+		    	char *source_ip_env;
+			source_ip_env = getenv("BIND_SOURCE_IP");
 			struct ifreq interface;
 
 			int errorCode;
@@ -118,9 +131,16 @@ int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
 					};
 				}
 			}
-			else
-			{
-				printf("Warning: Programm with LD_PRELOAD startet, but BIND_INTERFACE environment variable not set\n");
+			
+			if(source_ip_env != NULL && strlen(source_ip_env) > 0){
+				if (bind_to_source_ip(sockfd, source_ip_env) < 0){
+				    perror("bind_to_source_ip failed");
+				    return -1;
+				}
+			}
+			
+			if(!(source_ip_env != NULL && strlen(source_ip_env) > 0) && !(bind_addr_env != NULL && strlen(bind_addr_env) > 0)){
+				printf("Warning: Programm with LD_PRELOAD started, but BIND_INTERFACE environment variable not set\n");
 				fprintf(stderr, "Warning: Programm with LD_PRELOAD startet, but BIND_INTERFACE environment variable not set\n");
 			}
 		}

@@ -37,6 +37,14 @@ Especially when using more complex scripts or programs, that use another working
 
 This is the essential part. If not specified program will warn you, however it will not refuse the connection. 
 
+### BIND_SOURCE_IP (unreliable / only on some systems)
+
+On some systems you can also set the source IP in case multiple IP addresses are attached to your interface, like this: `BIND_INTERFACE=eth0 BIND_SOURCE_IP=1.2.3.4 LD_PRELOAD...`
+
+**Warning**: It highly depends on which system you are using BIND_SOURCE_IP. Kernel versions 5.10 seem not to work, whereas Kernel 5.15 seems to work, see https://github.com/JsBergbau/BindToInterface/pull/12#issuecomment-1776647513
+
+**Use at your own risk and try if it works on your system**!
+
 ### DNS_OVERRIDE_IP
 
 When you have multiple interfaces you normally also have multiple DNS servers. Since your program is bound to specified interface, also DNS traffic has to go through that interface. 
