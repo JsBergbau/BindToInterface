@@ -140,8 +140,8 @@ int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
 			}
 			
 			if(!(source_ip_env != NULL && strlen(source_ip_env) > 0) && !(bind_addr_env != NULL && strlen(bind_addr_env) > 0)){
-				printf("Warning: Programm with LD_PRELOAD started, but BIND_INTERFACE environment variable not set\n");
-				fprintf(stderr, "Warning: Programm with LD_PRELOAD startet, but BIND_INTERFACE environment variable not set\n");
+				printf("Warning: Program with LD_PRELOAD started, but BIND_INTERFACE environment variable not set\n");
+				fprintf(stderr, "Warning: Program with LD_PRELOAD started, but BIND_INTERFACE environment variable not set\n");
 			}
 		}
 	}
