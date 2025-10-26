@@ -1,4 +1,4 @@
-# BindToInterface - securely bind a programm to a specific network interface or network adapter
+# BindToInterface - securely bind a program to a specific network interface or network adapter
 
 Bind To Interface is a useful program for unix/linux if you have multiple network interfaces or adapters and want your program use strictly only one or none. You don't
 have to bother with routing tables, network namespaces or iptables and marking packets.
@@ -19,7 +19,7 @@ Download the source code and compile it with `gcc -nostartfiles -fpic -shared bi
 
 ## Usage of BindToInterface
 
-Configuration and usage of bind to interface is very simple. Example of how to run a programm with BindToInterface: `BIND_INTERFACE=ovpn DNS_OVERRIDE_IP=8.8.8.8 LD_PRELOAD=./bindToInterface.so curl ifconfig.me` Note: Prior to kernel 5.6.X - April 2020 you need superuser rights, see https://github.com/JsBergbau/BindToInterface/issues/4
+Configuration and usage of bind to interface is very simple. Example of how to run a program with BindToInterface: `BIND_INTERFACE=ovpn DNS_OVERRIDE_IP=8.8.8.8 LD_PRELOAD=./bindToInterface.so curl ifconfig.me` Note: Prior to kernel 5.6.X - April 2020 you need superuser rights, see https://github.com/JsBergbau/BindToInterface/issues/4
 Instead of specifying the parameters in the same line you could also export them like `export DNS_OVERRIDE_IP=8.8.8.8`. In this case interface ovpn is a VPN provider but configured via option `route-nopull`, 
 so your internet traffic still goes via your normal internet connection without VPN.
 
